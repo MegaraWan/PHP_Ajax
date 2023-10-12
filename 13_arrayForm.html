@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Examples</title>
+</head>
+<body>
+    <!-- p.110 -->
+<form action="14_arrayForm.php" method="get">
+帳號<input type="text" name="memId"><br>
+
+
+<!-- 英文能力<input type="checkBox" name="ability" value="read">讀
+      <input type="checkBox" name="ability" value="listen">聽
+      <input type="checkBox" name="ability" value="write">寫<br> -->
+<!-- 用陣列的方式才可以把資料都秀出來 不然後面會蓋到前面 -->
+英文能力<input type="checkBox" name="ability[]" value="read">讀
+<!-- ability[]裡面沒放數字表示新增在最後面 
+    如果填數字這樣固定住會跳號還要用foreach的方式寫沒必要-->
+      <input type="checkBox" name="ability[]" value="listen">聽
+      <input type="checkBox" name="ability[]" value="write">寫<br>
+      
+專長<br>
+   <select name="specialty[]" size="3" multiple >
+       <option value="VB.NET">VB.NET</option>
+       <option value="SQL">SQL Server </option>
+       <option value="JAVA">JAVA </option>
+       <option value="Delphi">Delphi </option>
+    </select>     
+<input type="submit" value="送出">
+</form>
+  
+</body>
+</html>

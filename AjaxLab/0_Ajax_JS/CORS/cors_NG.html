@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Examples</title>
+</head>
+<body>
+
+<input type="button" id="btn" value="get" onclick="cors();">
+<script> 
+function cors(){
+  var xhr = new XMLHttpRequest();
+  xhr.onload = function(){
+  	if(xhr.status == 200){
+  		let json = xhr.responseText;
+  		console.log(json);
+  	}else{
+  		alert(xhr.status);
+  	}
+  }
+  
+  let url;
+
+  url = 'https://www.w3schools.com/JS/demo_jsonp2.php';
+  
+  xhr.open("get", url, true);
+
+  xhr.send(null); 
+}
+//--------------------------
+ 
+</script>  
+</body>
+</html>

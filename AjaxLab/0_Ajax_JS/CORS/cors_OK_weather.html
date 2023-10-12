@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Examples</title>
+<style>
+  .weatherTable th {
+    background-color: pink;
+  }
+  .weatherTable td {
+    border:1px dotted deeppink;
+    width:160px;
+  }
+</style>
+</head>
+<body>
+
+<input type="button" id="btn" value="get" onclick="cors();">
+<div id="showPanel"></div>
+<script>
+//中央氣象局 
+//中央氣象局開放資料平臺之資料擷取API, try it
+//
+
+//中央氣象局開放資料平臺之資料擷取API說明文件
+//https://opendata.cwb.gov.tw/opendatadoc/CWB_Opendata_API_V1.2.pdf
+
+//氣象因子說明文件
+//https://opendata.cwb.gov.tw/opendatadoc/MFC/D0047.pdf
+
+//觀測站資訊
+//https://e-service.cwb.gov.tw/wdps/obs/state.htm
+
+function showWeather(json){
+  let result = JSON.parse(json);
+  console.log(result);
+  let weather = result.records.locations[0].location[0].weatherElement;
+  let minT = weather[0]; //一週的各時段的最低温
+  let maxT = weather[1]; //一週的各時段的最高温
+  //--------------今天是星期?
+  let temp = "日一二三四五六";
+  console.log(temp);
+  let today = new Date(minT.time[0].startTime.substr(0,10));
+  let todayIndex = today.getDay();
+  let weekStr = temp.substr(todayIndex) + temp.substring(0, todayIndex) ;
+  console.log(weekStr);
+  let html = `<table class="weatherTable">`;
+  //標題
+  // html += `<tr><th> </th><th>${weekStr.charAt(0)}</th><th>${weekStr.charAt(1)}</th><th>${weekStr.charAt(2)}</th><th>${weekStr.charAt(3)}</th><th>${weekStr.charAt(4)}</th><th>${weekStr.charAt(5)}</th><th>${weekStr.charAt(6)}</th></tr>`;
+
+  html += "<tr><th> </th>";
+  for(let i=0; i<weekStr.length; i++){
+    html += `<th>${weekStr.charAt(i)}</th>`;
+  }
+  html += "</tr>";
+  //-------------------最低温
+  html += `<tr><td>最低温</td>
+  <td>${minT.time[0].elementValue[0].value}\u2103~${minT.time[1].elementValue[0].value}\u2103</td>
+  <td>${minT.time[2].elementValue[0].value}\u2103~${minT.time[3].elementValue[0].value}\u2103</td>
+  <td>${minT.time[4].elementValue[0].value}\u2103~${minT.time[5].elementValue[0].value}\u2103</td>
+  <td>${minT.time[6].elementValue[0].value}\u2103~${minT.time[7].elementValue[0].value}\u2103</td>
+  <td>${minT.time[8].elementValue[0].value}\u2103~${minT.time[9].elementValue[0].value}\u2103</td>
+  <td>${minT.time[10].elementValue[0].value}\u2103~${minT.time[11].elementValue[0].value}\u2103</td>
+  <td>${minT.time[12].elementValue[0].value}\u2103~${minT.time[13].elementValue[0].value}\u2103</td>
+  </tr>`;
+
+    //-------------------最高温
+  html += `<tr><td>最高温</td>
+  <td>${maxT.time[0].elementValue[0].value}\u2103~${maxT.time[1].elementValue[0].value}\u2103</td>
+  <td>${maxT.time[2].elementValue[0].value}\u2103~${maxT.time[3].elementValue[0].value}\u2103</td>
+  <td>${maxT.time[4].elementValue[0].value}\u2103~${maxT.time[5].elementValue[0].value}\u2103</td>
+  <td>${maxT.time[6].elementValue[0].value}\u2103~${maxT.time[7].elementValue[0].value}\u2103</td>
+  <td>${maxT.time[8].elementValue[0].value}\u2103~${maxT.time[9].elementValue[0].value}\u2103</td>
+  <td>${maxT.time[10].elementValue[0].value}\u2103~${maxT.time[11].elementValue[0].value}\u2103</td>
+  <td>${maxT.time[12].elementValue[0].value}\u2103~${maxT.time[13].elementValue[0].value}\u2103</td>
+  </tr>`;
+
+  // for(let i=0; i<minT.time.length; i++){
+  //   //console.log(minT.time[i]);
+  //   console.log(minT.time[i].elementValue[0].value)
+  // }
+  //minT.time[0] -> {elementValue, startTime, endTime}
+  //elementValue -> [{value, measures}]
+
+
+  document.getElementById("showPanel").innerHTML = html;
+}
+
+function cors(){
+  var xhr = new XMLHttpRequest();
+  xhr.onload = function(){
+  	if(xhr.status == 200){
+  		//console.log(xhr.responseText);
+      showWeather(xhr.responseText);
+  	}else{
+  		alert(xhr.status);
+  	}
+  }
+
+  //桃園市一週天氣預報
+  let url = "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-091?Authorization=CWB-AEE77C25-7543-4DDB-B74F-26198EC839F9&locationName=%E6%A1%83%E5%9C%92%E5%B8%82&elementName=MinT,MaxT";
+  xhr.open("get", url, true);
+
+  xhr.send(null); 
+
+}
+
+</script>  
+</body>
+</html>

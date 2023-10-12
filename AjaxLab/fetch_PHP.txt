@@ -1,0 +1,90 @@
+fetch是一個HTML5的API
+
+一.fetch基本語法
+fetch (resource , options) 
+.then (function (response) { //成功, 
+
+})
+.catch(function (err) { //捕捉錯誤
+    
+})
+
+
+註: fetch()會回傳promise物件, 
+1. promise物件若是成功的承諾則會執行then(),並將回傳的response物件傳入then的回呼式中
+
+2. 若promise物件若是拒決承諾則會執行catch(),並將回傳的error物件傳入catch()的回呼式中
+
+3.大部分的狀況這個promise物件的狀態會是resolved(fullfilled, 成功的承諾),
+只要server端有回傳headers資訊，promise的狀態就會是resolved
+即便http的狀態碼為404或500, 它還是被設為resolved，但會將response.ok設為false
+promise物件的狀態會被設定為rejected的狀態通常只有在網路錯誤或其他會中斷 request的情況。
+
+4.options可提供額外的設定{}
+method: 指定請求的方法，例如 "GET"、"POST"、"PUT"、"DELETE"等。預設為 "GET"。
+headers: 一個包含請求標頭的物件，用於指定額外的HTTP標頭。
+body: 要發送的內容，通常用於POST或PUT請求。
+mode: 控制跨域請求的模式，可以是 "cors"、"no-cors"、"same-origin"之一。預設為 "cors"。
+cache: 控制緩存的模式，可以是 "default"、"no-store"、"reload"、"no-cache"、"force-cache"或"only-if-cached"之一。
+credentials: 控制請求是否包含身分驗證資訊，可以是 "same-origin"、"include"或"omit"之一。預設為 "same-origin"。
+referrer: 預設為空字串。這個選項允許您指定引用網址，通常用於防止 CSRF 攻擊。如果未指定，則預設為空字串。
+
+5.headers{}中content-type的設定值:
+'application/json'：表示請求的內容為JSON格式。
+
+'application/x-www-form-urlencoded'：表示請求或回的內容為URL編碼的表單格式。
+
+'multipart/form-data'：表示請求或回應的內容以多部分形式傳輸，通常用於上傳檔案。
+
+'text/plain'：表示請求或回應的內容是純文字，沒有特定格式。此為預設的Content-Type值。
+
+6.發送資料時
+(1).當使用GET, method可省, 資料只要帶在網址列後即可
+    ---後端以$_GET[key]的方式接收前端送來的資料
+
+(2).當使用POST,method不可省, 若要傳送的格式是'application/x-www-form-urlencoded'
+    a.先將資料打包進new URLSearchParams()的物件中,再後將此物件放在body, 
+    b.在headers中指定所送出的格式為"application/x-www-form-urlencoded", 也可省略不寫
+
+    let formDataUrlEncoded = new URLSearchParams();
+    for(let key in empData){
+      formDataUrlEncoded.append(key, empData[key])
+    }
+
+    let options = {
+        method: 'POST', // 指定請求方法為POST
+        headers: { 
+          'Content-Type': 'application/x-www-form-urlencoded' 
+        },
+        //body的格式必須是 new URLSearchParams()的物件中
+
+        body: formDataUrlEncoded
+    };
+    ---後端以$_POST[key]的方式接收前端送來的資料
+
+(3).當使用POST,method不可省, 若要傳送的格式是'multipart/form-data'
+    let options = { 
+        method: 'POST', // 指定請求方法為POST
+        //上'Content-Type'的設定省略不寫, 前提是body的格式必須是 FormData()的物件中
+
+        body: formData
+
+(4).當使用POST,method不可省, 若要傳送的格式是'application/json'
+    a. 先將資料打包進物件，再以JSON.stringify(物件)後將JSON放在body, 
+    b. 在headers中指定所送出的格式為application/json, 也可省略不寫
+    let options = {
+        method: 'POST', // 指定請求方法為POST
+        headers: {
+          'Content-Type': 'application/json' // 設定請求標頭，指定內容為JSON格式
+        },
+        body: JSON.parse(datas)
+        // 需將資料打包, 再以JSON.stringify()送出
+    };
+    ---後端以$_PODT[key]...的方式接收前端送來的資料
+
+7.取回資料
+response.json()：把資料轉成JSON格式
+response.text()：把資料轉成text格式(變成純字串)
+response.blob()：把資料轉成Blob物件
+response.arrayBuffer()：把資料轉成二進制數組
+-------------------------------------------------------------------------------

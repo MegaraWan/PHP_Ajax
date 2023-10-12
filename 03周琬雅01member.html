@@ -1,0 +1,30 @@
+<!-- (1)建立01member.html內有表單如上所示，所需欄位為：
+姓名：memName 
+帳號：memId		
+密碼：memPsw
+e-mail：email
+性別：gender
+生日：birthday
+聯絡電話：tel
+將表單送出到01memberShow.php -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Examples</title>
+</head>
+<body>
+<form method="post" action="03周琬雅01memberShow.php">
+    姓名：<input type="text" name="memName"><br>
+    帳號：<input type="text" name="memId" maxlength="8">最多8個文數字<br>
+    密碼：<input type="password" name="memPsw" maxlength="8">最多8個文數字<br>
+    e-mail：<input type="email" name="email"><br>
+    性別：<input type="radio" name="gender" value="male">男
+    <input type="radio" name="gender" value="female">女<br>
+    生日：<input type="date" name="birthday"><br>
+    聯絡電話：<input type="tel" name="tel"><br>
+    <input type="submit" value="送出">
+</form>
+
+</body>
+</html>

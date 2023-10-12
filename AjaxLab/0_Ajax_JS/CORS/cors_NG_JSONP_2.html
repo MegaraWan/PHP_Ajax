@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Examples</title>
+<style>
+  .infoTable th{
+    background-color:pink;
+  }
+  .infoTable td{
+    border-bottom:1px dotted deeppink;
+  }
+</style>
+</head>
+<body>
+<center>
+<input type="button" id="btn" value="get">
+</center>
+
+<div id="showPanel"></div><br><br>
+
+<script> 
+function showData(data){
+    let somebody = data;
+    document.getElementById("showPanel").innerHTML = 
+      `<table align='center' class='infoTable'>
+      <tr><th>name</th><td>${somebody.name}</td></tr>
+      <tr><th>age</th><td>${somebody.age}</td></tr>
+      <tr><th>city</th><td>${somebody.city}</td></tr>
+      </table>`;
+} 
+
+//--------------------------
+function cors(){
+    //動態產生script, 再使用JSONP去跨域存取資料
+    let script = document.createElement("script");
+    script.src = 'https://www.w3schools.com/JS/demo_jsonp2.php?callback=showData';
+    document.body.appendChild(script);
+    /*
+    note:視Server端提供的服務給定不同的url資料, 例如
+    script.src = `https://www.w3schools.com/JS/demo_jsonp2.php?bookId=${bookId}&callback=showData`;
+    */
+}
+
+//--------------------------
+
+window.addEventListener("load", function(){
+    //本例希望在btn被點按時才去跨域存取資料
+    //註冊btn.onclick事件處理器
+    document.getElementById("btn").onclick = cors;
+})
+</script>  
+
+<img src="" alt="">
+
+</body>
+</html>

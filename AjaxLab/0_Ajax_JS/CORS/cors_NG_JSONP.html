@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Examples</title>
+<style>
+  th{
+    background-color:pink;
+  }
+  td{
+    border-bottom:1px dotted deeppink;
+  }
+</style>
+</head>
+<body>
+<center>
+</center>
+
+<div id="showPanel"></div><br><br>
+
+<script> 
+//--------------------------
+function myTest(data){
+  let somebody = data;
+  document.getElementById("showPanel").innerHTML = `<table align='center'>
+  <tr><th>name</th><td>${somebody.name}</td></tr>
+  <tr><th>age</th><td>${somebody.age}</td></tr>
+  <tr><th>city</th><td>${somebody.city}</td></tr>
+</table>`;
+} 
+</script>
+
+<!-- 使用 script 跨域取回資料,此例是網頁自動連到遠端的server -->
+<!-- 如果希望在某個觸發點再去執行，則需改寫 -->
+<script src="https://www.w3schools.com/JS/demo_jsonp2.php?callback=myTest"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+一.引用$.ajax函式庫
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+二.
+$.ajax({
+  	url: 'xxx.xxx.xxx',     // 請求目標的URL
+  	method: 'GET',       // 請求方法
+  	contentType:"application/json",  // 請求送出的資料型式
+ 	data: {                       // 請求要送出的資料
+   		 param1: 'value1',
+   		 param2: 'value2'
+  	},
+  	dataType: 'json',     // 預期的回應資料類型
+ 	headers: {},               // 請求標頭
+	async:true ,   //使用非同步
+  	beforeSend: function(xhr) {      // 發送請求之前要執行的函式
+    		// 執行一些前置處理
+  	},
+ 	 success: function(response) {     // 請求成功後的回呼函式
+		console.log(response);
+ 	 },
+  	error: function(xhr, status, error) {  // 請求失敗後的回呼函式
+    		console.log(error);
+  	},
+ 	 complete: function(xhr, status) {  // 請求完成後的回呼函式
+    		// 在請求完成後執行，無論成功或失敗都會執行
+  	}
+});
+
+
+//------------
+註:
+一.前端送出類表單的資料
+1. 以POST送出的資料格式若為"application/x-www-form-urlencoded", 則可將資料先放在物件中, $.ajax()會自動將其編碼成form-urlencoded的格式,
+如 : 
+contentType:"application/x-www-form-urlencoded",
+data:empData,
+--------
+empData={
+	memId: "Sara",
+	memPsw: "111"
+}
+memId=Sara&memPsw=111
+
+2.cotentType預設為:"application/x-www-form-urlencoded"
+
+3.後端程式以$_GET[key]或$_POST[key]的方式取回前端送來的資料
+
+
+二.送出JSON資料
+1. 送出的資料格式若為"application/json", 則可將資料先放在物件中, 再使用JSON.stringify(物件)
+如 : 
+contentType:"application/json",
+data:JSON.stringify(empData),
+
+2.後端程式以file_get_contents("php://input")....等方式取回前端送來的資料,再放入JSONObject內

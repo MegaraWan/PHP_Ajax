@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Examples</title>
+</head>
+<body>
+
+<form id="myForm" action="fileUpload.php" method="post" enctype="multipart/form-data">
+  <!--   <input type="hidden" name="MAX_FILE_SIZE" value="2048"> byte -->
+帳號 <input type="text" name="memId"><br>
+姓名<input type="text" name="memName"><br>	
+<!--------------------------------------------->
+大頭貼 <input type="file" name="upFile" id="upFile" style="display:none"><br>
+<label for="upFile">
+<img src="camera.png" alt="" id="img1" width="50">  
+</label>
+<!--------------------------------------------->
+<input type="submit" value="OK">
+</form>  
+
+<script>
+    document.getElementById("upFile").onchange = function(e){
+        //let files = e.target.files;
+        if(e.target.files.length === 0){
+            //document.getElementById("img1").src="";
+            return;
+        }
+        let file = e.target.files[0];
+        let reader = new FileReader();
+
+        reader.onload = function(e){
+            document.getElementById("img1").src = e.target.result; //讀到的圖片編碼資料
+        }  
+
+        reader.readAsDataURL(file); //base64的圖片編碼資料
+    }
+
+
+    document.getElementById("myForm").onsubmit = function(e) {
+        //----
+        //-----
+        //檔案必選
+        if (document.getElementById("upFile").files.length === 0) {
+            alert("檔案必選喔!");
+            e.preventDefault();
+            return;
+        }
+    }
+</script>
+</body>
+</html>

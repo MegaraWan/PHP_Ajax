@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<title>無標題文件</title>
+<style>
+  table.memTable th{
+    background-color:pink;
+  }
+
+  table.memTable td{
+    border-bottom:1px dotted deeppink;
+  }
+</style>
+</head>
+
+<body>
+<div>首頁>>會員專區</div>
+<center>
+會員帳號<input type="text" name="memId" id="memId"/>
+<input type="button" value="取得會員資料" onclick="getMember()"/>
+<div id="showPanel">
+</div>
+</center>
+<script>
+function showMember( xmlDoc ) { 
+  let table, tr, th, td, textNode;
+  console.log(xmlDoc.documentElement.childNodes.length);
+  let fields = xmlDoc.documentElement.childNodes;
+
+  table = document.createElement("table");  //<table></table>
+  for (let i=0; i<fields.length; i++) { //i:0
+    //產生一列
+    tr = document.createElement("tr"); //<tr></tr>
+    table.appendChild(tr); //<table><tr></tr></table>
+    //產生左邊格
+    th = document.createElement("th"); //<th></th>
+    tr.appendChild(th)//<table><tr><th></th></tr></table>
+    textNode = document.createTextNode(fields[i].nodeName);
+    th.appendChild(textNode);
+    //產生右邊格
+    td = document.createElement("td"); //<td></td>
+    tr.appendChild(td)//<table><tr><th></th><td></td></tr></table>
+    textNode = document.createTextNode(fields[i].firstChild.nodeValue);
+    td.appendChild(textNode);
+  }
+  table.setAttribute("class", "memTable");
+
+  document.getElementById("showPanel").appendChild(table);
+}
+
+function getMember(){
+  var xhr = new XMLHttpRequest();
+  xhr.onload = function ( ){ 
+	  if ( xhr.status == 200 ) {
+      alert(xhr.responseText);
+      alert(xhr.responseXML); //-------------- [object XMLHttpRequest]
+      console.log(xhr.responseText);
+  		showMember( xhr.responseXML ); 
+	  } else {
+	    alert( xhr.status );
+	  }
+  }
+  
+  var url = "getMore_XML.php?memId=" + document.getElementById("memId").value;
+  xhr.open("Get", url, true);
+  xhr.send( null );
+}
+</script>
+</body>
+</html>

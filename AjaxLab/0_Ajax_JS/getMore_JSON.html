@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<title>無標題文件</title>
+<style>
+  .memTable th{
+    background-color:pink;
+  }
+
+  .memTable td{
+    border-bottom:1px dotted deeppink;
+  }
+</style>
+</head>
+
+<body>
+<div>首頁>>會員專區</div>
+<center>
+會員帳號<input type="text" name="memId" id="memId"/>
+<input type="button" value="取得會員資料" onclick="getMember()"/>
+<div id="showPanel"></div>
+</center>
+
+
+<script>
+let member;
+
+function showMember() {
+  let html="";
+  if (member.memId) {
+    html = `<table class="memTable">
+              <tr><th>帳號</th><td>${member.memId}</td></tr>
+              <tr><th>姓名</th><td>${member.memName}</td></tr>
+              <tr><th>email</th><td>${member.email}</td></tr>
+            </table>`;    
+  } else {
+    html = "<center>查無此會員資料</center>";
+  }
+
+  document.getElementById("showPanel").innerHTML = html;
+}
+
+function getMember(){
+  let xhr = new XMLHttpRequest();
+
+  xhr.onload = function () {
+    member = JSON.parse(xhr.responseText);
+    showMember();
+  }
+  let url = `getMore_JSON.php?memId=${document.getElementById("memId").value}`; //?
+  xhr.open("get", url, true);
+  xhr.send(null);
+}
+</script>
+</body>
+</html>
