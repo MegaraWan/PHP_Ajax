@@ -6,10 +6,10 @@ try{
 	$products = $pdo->query($sql);
  
 	if( $products->rowCount() === 0) {//查無此書籍資料
-		require_once("booksHeader.inc.php");
+		require_once("00_booksHeader.inc.php");
 		echo "<center>查無此書籍資料</center>";
-		require_once("booksFooter.inc.php");
-		exit();
+		require_once("00_booksFooter.inc.php");
+		exit("php程式碼這一個可以用來表示以下程式都不執行，也可以放字近來");
 	}
  //若有滿足篩選條件的資料
 	$prodRow = $products->fetch(PDO::FETCH_ASSOC);
@@ -19,7 +19,7 @@ try{
 	// echo "系統暫時不能正常運行，請稍後再試<br>";	
 }
 
-require_once("booksHeader.inc.php");
+require_once("00_ooksHeader.inc.php");
  ?>
 
  	<table class="productTable" align="center">
@@ -31,5 +31,5 @@ require_once("booksHeader.inc.php");
  	 	<tr><th>圖檔</th><td><?=$prodRow["image"]?></td></tr>
  	 </table> 
 <?php
-require_once("booksFooter.inc.php");
+require_once("00_booksFooter.inc.php");
 ?>

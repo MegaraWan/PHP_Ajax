@@ -19,7 +19,9 @@ try{
 
 	//-------------------------------使用named parameter
 	$sql = "select * from `member` where memId=:memId and memPsw=:memPsw";
+	//用冒號取名，:memId 也可以取甚麼 :x 
 	//將sql指令編譯過
+	//p.157
 	$member = $pdo->prepare($sql);
 
 	//將資料代入參數中(未知數中);
@@ -30,9 +32,9 @@ try{
 	$member->execute();
 	if($member->rowCount() === 0) {
 		//若查無此人的資料即為帳密錯誤, 請重新登入~<br>
-		require_once("booksHeader.inc.php");
-		echo "<center>帳密錯誤, 請<a href='login_prepare.html'>重新登入~</a></center>";
-		require_once("booksFooter.inc.php");
+		require_once("00_booksHeader.inc.php");
+		echo "<center>帳密錯誤, 請<a href='03_login_prepare.html'>重新登入~</a></center>";
+		require_once("00_booksFooter.inc.php");
 		exit();		
 	}
 
@@ -43,7 +45,7 @@ try{
 	echo "錯誤原因 : ", $e->getMessage(), "<br>";
 	//echo "系統暫時不能正常運行，請稍後再試<br>";	
 }
-require_once("booksHeader.inc.php");
+require_once("00_booksHeader.inc.php");
  ?>  
 
 <?php 
@@ -51,5 +53,5 @@ echo $memRow["memName"], ", 您好~";
  ?> 
 
 <?php 
-require_once("booksFooter.inc.php");
+require_once("00_booksFooter.inc.php");
 ?>
