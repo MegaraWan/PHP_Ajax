@@ -7,9 +7,11 @@
 </head>
 <body>
 <?php
-echo "帳號 : ", ,"<br>";
-echo "姓名 : ",  ,"<br>";
-echo "email : ",   ,"<br>";
+// 9.20上午 p.165
+echo "帳號 : ", $_COOKIE["memId"],"<br>";
+echo "姓名 : ", $_COOKIE["memName"] ,"<br>";
+echo "email : ", $_COOKIE["email"]  ,"<br>";
+
 ?> 
 </body>
 </html>

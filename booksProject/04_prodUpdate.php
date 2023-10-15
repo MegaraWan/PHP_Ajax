@@ -38,7 +38,7 @@ try{
 </head>
 <body>
 <div style="background-color:#bebefe">這是navBar</div>	
-	<form action="prodUpdateToDb.php" method="post">
+	<form action="04_prodUpdateToDb.php" method="post">
 		<input type="hidden" name="psn" value="<?=$prodRow["psn"]?>">
  	<table class="productTable" align="center">
  	 	<tr><th>書號</th><td><?=$prodRow["psn"]?></td></tr>

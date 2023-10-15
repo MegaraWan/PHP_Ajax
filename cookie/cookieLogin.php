@@ -1,4 +1,5 @@
 <?php
+// 9.20上午 p.165
 $memId = $_POST["memId"];
 $memPsw = $_POST["memPsw"];
 $errMsg = "";
@@ -13,11 +14,13 @@ try {
 	$member->execute();//執行之
 
 	if( $member->rowCount() == 0 ){//找不到
-		$errMsg .= "帳密錯誤, <a href='cookieLogin.html'>重新登入</a><br>";
+		$errMsg = $errMsg . "帳密錯誤, <a href='cookieLogin.html'>重新登入</a><br>";
 	}else{
 		$memRow = $member->fetch(PDO::FETCH_ASSOC);
-		//登入成功,將登入者的資料寫入cookie
-
+		//登入成功,將登入者的資料寫入cookie time()+60 一分鐘內都有效
+		setcookie("memId", $memRow["memId"], time() + 60);
+		setcookie("memName", $memRow["memName"], time() + 60);
+		setcookie("email", $memRow["email"], time() + 60);
 	}
 } catch (PDOException $e) {
 	$errMsg .= "錯誤 : ".$e -> getMessage()."<br>";

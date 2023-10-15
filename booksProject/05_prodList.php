@@ -42,7 +42,7 @@ try {
 			<tr>
 			<td><?=$prodRow["psn"]?></td>
 			<td>
-				<a href="prodQuery.php?psn=<?=$prodRow["psn"]?>">
+				<a href="01_prodQuery.php?psn=<?=$prodRow["psn"]?>">
 				<?=$prodRow["pname"]?>
 				</a>	
 			</td>

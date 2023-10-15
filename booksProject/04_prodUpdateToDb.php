@@ -15,7 +15,7 @@ try {
 	$products->execute();
 
 	//-------------------
-	/*
+	/* 如果每隔都要改 可以用foreach的寫法
 	$products = $pdo->prepare($sql);
 	foreach($_POST as $key => $data){
 		$products->bindValue(":$key", $data);
