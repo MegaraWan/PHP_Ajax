@@ -5,9 +5,10 @@
 <title>Examples</title>
 </head>
 <body>
-
-<form action="fileUpload.php" method="post" enctype="multipart/form-data">
-  <!--   <input type="hidden" name="MAX_FILE_SIZE" value="2048"> byte -->
+<!-- 9/25上午 p169 -->
+<form action="01_fileUpload.php" method="post" enctype="multipart/form-data">
+<!-- 一定要用post 才不會網址上秀出來超過資料 一定要用multipart/form-data 圖片才會自己在送一次 -->
+<!--   <input type="hidden" name="MAX_FILE_SIZE" value="2048"> byte -->
 帳號 <input type="text" name="memId"><br>
 姓名<input type="text" name="memName"><br>	
 大頭貼 <input type="file" name="upFile" id="upFile"><br>
@@ -20,14 +21,14 @@
 <script>
     document.getElementById("upFile").onchange = function(e){
         //let files = e.target.files;
-        let file = e.target.files[0];
+        
         let reader = new FileReader();
 
         reader.onload = function(e){
             document.getElementById("img1").src = e.target.result
         }  
 
-        reader.readAsDataURL(file); //base64
+
 
 
     }

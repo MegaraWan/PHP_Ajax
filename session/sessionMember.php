@@ -1,6 +1,8 @@
 <?php
-//記得要使用session之前，要先啟用serssion
-
+// 9.20上午 p.166 
+//記得要使用session之前，要先啟用session
+ob_start(); //output buffer
+session_start();
 
 ?>
 <!DOCTYPE html>
@@ -13,9 +15,9 @@
 <?php
 echo "id : ", session_id() ,"<br>";
 //自session中取回登入者資料
-echo "帳號 : ", "<br>";
-echo "姓名 : ", "<br>";  
-echo "email : ", "<br>";
+echo "帳號 : ", $_SESSION["memId"], "<br>";
+echo "姓名 : ", $_SESSION["memName"], "<br>";  
+echo "email : ", $_SESSION["email"], "<br>";
 ?> 
 </body>
 </html>

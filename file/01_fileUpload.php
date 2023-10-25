@@ -10,13 +10,14 @@
 switch ($_FILES["upFile"]["error"]) {
     case UPLOAD_ERR_OK :
         $dir = "../images/";    
-        if(file_exists($dir) === false) {
-            //make directory
+        if(file_exists($dir) === false) {//如果資料夾不存在
+            //make directory 建立資料夾
             mkdir($dir);
         }
         
         $from = $_FILES['upFile']['tmp_name'] ; //含路徑(比如 C:/wamp64/tmp/phpBC72.xx)
-        $to = $dir . $_FILES['upFile']['name'] ; //只含檔案名稱, 可以自己設定所要的資料夾名稱
+        $to = $dir . $_FILES['upFile']['name'] ; 
+        //只含檔案名稱, 可以自己設定所要的資料夾名稱 $dir. = ../images/檔案名稱
         copy($from , $to);
         echo "上傳成功~<br>";    
         break;

@@ -7,7 +7,8 @@
 <body>
 
 <?php
-
+print_r($_FILES);exit();//看有沒有抓到照片資料檢查用
+// 多個檔案 p.175
 foreach ($_FILES["upFile"]["error"] as $i => $data) {
     switch ($_FILES["upFile"]["error"][$i]) {
         case UPLOAD_ERR_OK :

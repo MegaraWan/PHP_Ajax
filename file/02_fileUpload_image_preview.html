@@ -5,15 +5,15 @@
 <title>Examples</title>
 </head>
 <body>
-
-<form id="myForm" action="fileUpload.php" method="post" enctype="multipart/form-data">
+<!-- 9/25下午 -->
+<form id="myForm" action="01_fileUpload.php" method="post" enctype="multipart/form-data">
   <!--   <input type="hidden" name="MAX_FILE_SIZE" value="2048"> byte -->
 帳號 <input type="text" name="memId"><br>
 姓名<input type="text" name="memName"><br>	
 <!--------------------------------------------->
 大頭貼 <input type="file" name="upFile" id="upFile" style="display:none"><br>
 <label for="upFile">
-<img src="camera.png" alt="" id="img1" width="50">  
+<img src="02_camera.png" alt="" id="img1" width="50">  
 </label>
 <!--------------------------------------------->
 <input type="submit" value="OK">
@@ -23,7 +23,8 @@
     document.getElementById("upFile").onchange = function(e){
         //let files = e.target.files;
         if(e.target.files.length === 0){
-            //document.getElementById("img1").src="";
+            //document.getElementById("img1").src=""; 
+            //取消的時候照片原本放的照片被清除
             return;
         }
         let file = e.target.files[0];

@@ -1,4 +1,5 @@
 <?php
+// 9.20上午 p.166 
 $memId = $_POST["memId"];
 $memPsw = $_POST["memPsw"];
 $errMsg = "";
@@ -17,6 +18,10 @@ try {
     }else{
         $memRow = $member->fetch(PDO::FETCH_ASSOC);
         //登入成功,將登入者的資料寫入session
+        session_start();
+        $_SESSION["memId"] = $memRow["memId"];
+        $_SESSION["memName"] = $memRow["memName"];
+        $_SESSION["email"] = $memRow["email"];
     }
 } catch (PDOException $e) {
     $errMsg .= "錯誤 : ".$e -> getMessage()."<br>";

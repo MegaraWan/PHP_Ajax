@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="file" id="theFile" />
+    <img :src="addNews.news_image" :alt="addNews.news_image" id="img1" width="100">
+    <textarea name="news_image" id="photoname" cols="70" rows="5">{{ addNews.news_image }}</textarea>
+
+</body>
+<script>
+    function doFirst() {
+        document.getElementById('theFile').onchange = fileChange//物件.事件 = 處理函數  
+    }
+    function fileChange() {
+        let file = document.getElementById('theFile').files[0];
+        let message = file.name
+        document.getElementById('photoname').value = message;
+    }
+    window.addEventListener('load', doFirst) 
+</script>
+
+</html>
